@@ -9,6 +9,12 @@
 
 #include <stdio.h>
 
+typedef struct client_packet {
+    int auth;
+    float x;
+    float y;
+} client_packet_t;
+
 /*
  * Create the client socket
  * @return The socked created

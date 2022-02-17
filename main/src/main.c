@@ -52,7 +52,6 @@ int main(int argc, char **argv)
     float delta_up = 0;
 
     /* Timer variable */
-
     time_t start_time;
     _time64(&start_time);
 
@@ -79,6 +78,9 @@ int main(int argc, char **argv)
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &player0_rect);
 
+        //SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND); // added
+        //SDL_RenderCopy(renderer, player_texture, NULL, &player0_rect);
+
         /* send packet every 2 second */
         time_t counter;
         _time64(&counter);
@@ -92,5 +94,6 @@ int main(int argc, char **argv)
     }
 
     SDL_Quit();
+
     return 0;
 }

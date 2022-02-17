@@ -40,14 +40,13 @@ void client_set_socket_address(struct sockaddr_in *sin, char *address)
 
 void client_send_packet(SOCKET _socket, struct sockaddr_in sin, int player_id, float x, float y, int msg_len)
 {
-    int id = player_id;
-    float coordX = x;
-    float coordY = y;
+    client_packet_t mypacket;
+    mypacket.auth = player_id;
+    mypacket.x = x;
+    mypacket.y = y;
     char transform[12];
-    sprintf(transform, "%d%.2f%.2f", id, coordX, coordY); // convert numbers to string and return value in transform
+    memcpy(transform, &mypacket, 12);
 
     int sent_bytes = sendto(_socket, transform, msg_len, 0, (struct sockaddr*)&sin, sizeof(sin));
     printf("sent %d bytes via UDP\n", sent_bytes);
-
-    printf("%s\n", transform);
 }

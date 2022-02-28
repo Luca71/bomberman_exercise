@@ -38,3 +38,11 @@ void client_set_socket_address(struct sockaddr_in *sin, char *address);
  * @param msg_len The total length of message
 */
 void client_send_packet(SOCKET _socket, struct sockaddr_in sin, int player_id, float x, float y, int msg_len);
+
+/*
+ * Receive packet from server
+ * @param _socket The socked
+ * @param sin The socked in struct
+ * @param msg_len The total length of message
+*/
+void client_receive_packet(SOCKET _socket, struct sockaddr_in sin, char *msg_content);

@@ -9,6 +9,8 @@
 
 #include <stdio.h>
 #include "client.h"
+#include "bomberman.h"
+#include <string.h>
 
 int client_init_socket()
 {
@@ -49,4 +51,19 @@ void client_send_packet(SOCKET _socket, struct sockaddr_in sin, int player_id, f
 
     int sent_bytes = sendto(_socket, transform, msg_len, 0, (struct sockaddr*)&sin, sizeof(sin));
     printf("sent %d bytes via UDP\n", sent_bytes);
+}
+
+void client_receive_packet(SOCKET _socket, struct sockaddr_in sin, char *msg_content)
+{
+    char msg[12];
+    struct sockaddr_in sender_in;
+    int sender_in_size = sizeof(sender_in);
+    int len = recvfrom(_socket, msg, 12, 0, (struct sockaddr*)&sender_in, &sender_in_size);
+    
+
+    if(len > 0)
+    {
+        //char msg_content[12];
+        memcpy(msg_content, msg, 12);
+    }
 }

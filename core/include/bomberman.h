@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <SDL.h>
+#include "bmp_parser.h"
 
 #define BLOCK_MASK_UNWALKABLE 0x0100
 #define BLOCK_MASK_TELEPORT 0x0200
@@ -75,10 +76,11 @@ int32_t level_cell(level_t* level, const uint32_t col, const uint32_t row);
  * Draw the level
  *
  * @param renderer The level renderer
+ * @param level_cell_tex The texture for lvel cells
  * @param level Thew level to draw
  * @param cell_rect The cell rect reference
 */
-void draw_level(SDL_Renderer *renderer, level_t level, SDL_Rect cell_rect);
+void draw_level(SDL_Renderer *renderer, SDL_Texture *level_cell_tex, level_t level, SDL_Rect cell_rect);
 
 /*
  * Get the id of a player

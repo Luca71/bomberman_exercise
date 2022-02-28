@@ -1,6 +1,6 @@
 #define CLOVE_SUITE_NAME MovableTest
 #include "clove-experimental.h"
-#include "../include/bomberman.h"
+#include "bomberman.h"
 
 CLOVE_TEST(MovableFixPositionX)                    
 {
@@ -130,7 +130,7 @@ CLOVE_TEST(MovableUpWallHitY)                        // Move up
     level_init(&level, 2, 2, 64, map);
     movable_t movable = { 16, 80, 32, 32};
     move_on_level(&level, &movable, 0, -80);
-    CLOVE_FLOAT_EQ(movable.y, 64);
+    CLOVE_FLOAT_EQ(17, movable.y);
 }
 CLOVE_TEST(MovableUpWallHitYLeftSide)                        
 {
@@ -139,7 +139,7 @@ CLOVE_TEST(MovableUpWallHitYLeftSide)
     level_init(&level, 2, 2, 64, map);
     movable_t movable = { 48, 80, 32, 32};
     move_on_level(&level, &movable, 0, -80);
-    CLOVE_FLOAT_EQ(movable.y, 64);
+    CLOVE_FLOAT_EQ(17, movable.y);
 }
 CLOVE_TEST(MovableUpWallHitYRightSide)                        
 {
@@ -148,5 +148,5 @@ CLOVE_TEST(MovableUpWallHitYRightSide)
     level_init(&level, 2, 2, 64, map);
     movable_t movable = { 48, 80, 32, 32};
     move_on_level(&level, &movable, 0, -80);
-    CLOVE_FLOAT_EQ(movable.y, 64);
+    CLOVE_FLOAT_EQ(17, movable.y);
 }

@@ -4,7 +4,9 @@ int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, c
 {
     float new_x = movable->x + delta_x;
     float new_y = movable->y + delta_y;
+    float half_height = movable->height * 0.5;
 
+    // Check window bounds
     if (new_x < 0)
         new_x = 0;
     else if (new_x + movable->width >= level->cols * level->cell_size)
@@ -28,7 +30,7 @@ int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, c
         }
         else
         {
-            cell_y = movable->y / level->cell_size; // test for neck
+            cell_y = (movable->y + half_height - 1) / level->cell_size; // test for neck
             cell = level_cell(level, cell_x, cell_y);
             if (cell & BLOCK_MASK_UNWALKABLE) // collision!
             {
@@ -53,7 +55,7 @@ int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, c
         }
         else
         {
-            cell_y = movable->y / level->cell_size; // test for neck
+            cell_y = (movable->y + half_height - 1) / level->cell_size; // test for neck
             cell = level_cell(level, cell_x, cell_y);
             if (cell & BLOCK_MASK_UNWALKABLE) // collision!
             {
@@ -95,19 +97,19 @@ int32_t move_on_level(level_t *level, movable_t *movable, const float delta_x, c
     else if(new_y < movable->y)
     {
         uint32_t cell_x = movable->x / level->cell_size; // test the left side
-        uint32_t cell_y = new_y / level->cell_size;
+        uint32_t cell_y = (new_y + half_height - 1) / level->cell_size;
         cell = level_cell(level, cell_x, cell_y);
         if (cell & BLOCK_MASK_UNWALKABLE)
         {
-            movable->y = (cell_y * level->cell_size) + level->cell_size;
+            movable->y = (cell_y * level->cell_size) + half_height + 1;
         }
         else
         {
-            cell_x = (movable->x + movable->width -1) / level->cell_size; // test the right side
+            cell_x = (movable->x + movable->width - 1) / level->cell_size; // test the right side
             cell = level_cell(level, cell_x, cell_y);
             if (cell & BLOCK_MASK_UNWALKABLE) // collision!
             {
-                movable->y = (cell_y * level->cell_size) + level->cell_size;
+                movable->y = (cell_y * level->cell_size) + half_height + 1;
             }
             else
             {
